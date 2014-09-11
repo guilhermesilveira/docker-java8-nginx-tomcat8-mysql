@@ -1,0 +1,45 @@
+This docker container is used as a base setup for running java 8 + tomcat webapps.
+Mysql usage is optional (it will be installed but the daemon is not started).
+Newrelic daemon is optional.
+Nginx config is required to use port 8080
+
+To download image:
+
+```
+docker pull guilhermesilveira/java8-nginx-tomcat8-mysql
+```
+
+Or clone and build a new image:
+
+```
+git clone git@github.com:guilhermesilveira/java8-nginx-tomcat8-mysql.git
+docker build -t="guilhermesilveira/java8-nginx-tomcat8-mysql"
+```
+
+To start the engines:
+
+```
+docker run -t -i -p 80:80 -p 8080:8080 guilhermesilveira/java8-nginx-tomcat8-mysql /bin/bash
+```
+
+And then you can:
+
+```
+# Start (if you need) mysql
+service mysql start
+
+# Add a tomcat root webapp
+mkdir -p /home/root/tomcat/webapps/ROOT
+echo "Welcome to Tomcat" > /home/root/tomcat/webapps/ROOT/index.html 
+
+# Start tomcat
+/home/root/tomcat/bin/startup.sh
+
+# Test tomcat and nginx
+curl http://localhost:8080
+curl http://localhost
+
+# Build you own project
+# git clone your project
+# ant and/or npm build it
+```
