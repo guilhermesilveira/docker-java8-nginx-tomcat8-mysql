@@ -48,3 +48,5 @@ RUN sudo apt-get install -qq -y mysql-server 2> /dev/null
 
 ### NGINX redir to tomcat
 COPY config/nginx-tomcat.conf /etc/nginx/sites-available/default
+
+COPY config/nginx.conf /etc/nginx/nginx.conf
